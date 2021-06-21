@@ -86,7 +86,7 @@ Only the Jumpbox machine can accept connections from the Internet. Access to thi
 - _TODO: Add whitelisted IP addresses_
 198.98.112.166
 
-Machines within the network can only be accessed by _____.
+Machines within the network can only be accessed by The Jumpbox/ Ansible container.
 - _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
 The Jumpbox /Ansible container - 52.152.239.79
 
