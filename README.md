@@ -41,7 +41,7 @@ These files have been tested and used to generate a live ELK deployment on Azure
       enabled: yes
 
 This document contains the following details:
-- Description of the Topologu
+- Description of the Topology
 - Access Policies
 - ELK Configuration
   - Beats in Use
@@ -103,7 +103,7 @@ A summary of the access policies in place can be found in the table below.
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
 - _TODO: What is the main advantage of automating configuration with Ansible?_
-One playbook can be used to configure multiple machines, for example; The same playbook that was used in configuring the ELK machine can be used to connfigure multiple machines by just adding the host's IP address to the /etc/ansible/hosts file, instead of manualyy configuring them one by one.
+One playbook can be used to configure multiple machines, for example; The same playbook that was used in configuring the ELK machine can be used to connfigure multiple machines by just adding the host's IP address to the /etc/ansible/hosts file, instead of manually configuring the machines one by one.
 
 The playbook implements the following tasks:
 - _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
@@ -146,7 +146,7 @@ _TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? filebeat-playbook.yml is the playbook file
 Where do you copy it?_ The file is located in /etc/ansible/roles/ directory
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-You update the /etc/ansible/hosts file, and you do this by updating the webservser section with the Ip addresses of the hosts that Filebeat would be installed on, and updating the Elk section with the Ip address of the host that the Elk container would be installed on. Also make sure not to forget the "ansible_python_interpreter=/usr/bin/python3" in front of the host's Ip addresses.
+You update the /etc/ansible/hosts file, and you do this by updating the webservser section with the Ip addresses of the hosts that Filebeat would be installed on, and updating the Elk section with the Ip address of the host that the Elk container would be installed on. Also make sure to add the "ansible_python_interpreter=/usr/bin/python3" in front of the host's Ip addresses.
 - _Which URL do you navigate to in order to check that the ELK server is running?
 http://ELK.VM.PublicIP:5601/
 
