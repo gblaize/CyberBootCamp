@@ -5,7 +5,7 @@ Commits from the CyberSec Bootcamp
 
 The files in this repository were used to configure the network depicted below.
 
-![~/CyberBootCamp/Diagrams/Images/Network Diagram.jpg](Images/diagram_filename.png)
+![~/CyberBootCamp/Diagrams/Images/Network Diagram.jpg](Images/Network Diagram.jpg)
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the Filebeat-playbook.yml file may be used to install only certain pieces of it, such as Filebeat.
 
@@ -86,7 +86,7 @@ Only the Jumpbox machine can accept connections from the Internet. Access to thi
 - _TODO: Add whitelisted IP addresses_
 198.98.112.166
 
-Machines within the network can only be accessed by The Jumpbox/ Ansible container.
+Machines within the network can only be accessed by The Jumpbox/ Ansible container, and only the whitelisted public address listed above can access this Jumpbox.
 - _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
 The Jumpbox /Ansible container - 52.152.239.79
 
@@ -104,7 +104,7 @@ A summary of the access policies in place can be found in the table below.
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
 - _TODO: What is the main advantage of automating configuration with Ansible?_
-The same playbook that was used in configuring the ELK machine can be used to connfigure multiple machines by just adding the host's IP address to the /etc/ansible/hosts file, instead of manualyy configuring them one by one.
+One playbook can be used to configure multiple machines, for example; The same playbook that was used in configuring the ELK machine can be used to connfigure multiple machines by just adding the host's IP address to the /etc/ansible/hosts file, instead of manualyy configuring them one by one.
 
 The playbook implements the following tasks:
 - _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
@@ -134,23 +134,32 @@ These Beats allow us to collect the following information from each machine:
 Filebeat monitors changes in file logs in a specified location, then ships the data of the events that occur in this specific location to logstash/elastic search. Collecting Apache logs and forwarding them to Elasticsearch or Logstash.
 
 Metricbeat records the metrics from the operating system and from services running on a
-server e.g shipping the meris collected from a MySQL server to Elastic search or Logstash.
+server e.g shipping the metrics collected from a MySQL server to Elastic search or Logstash.
 ### Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
 - Copy the Filebeat configuration file /etc/ansible/filebeat-config.yml file to /etc/filebeat/filebeat.yml.
-- Update the /etc/ansible/hosts file to include the Ip addresses of the web vms under the webservers section.
-- Run the playbook, and navigate to http://20.98.101.26:5601/ to check that the installation worked as expected.
+- Update the /etc/ansible/hosts file to include the Ip addresses of the web vms under the webservers section, and include the ansible_python_interpreter=/usr/bin/python3 in front of the ip address. e.g 10.0.0.4 ansible_python_interpreter=/usr/bin/python3
+- Run the playbook, and navigate to http://ELK.VM.PublicIP:5601/ to check that the installation worked as expected.
 
 _TODO: Answer the following questions to fill in the blanks:_
 - _Which file is the playbook? filebeat-playbook.yml is the playbook file
 Where do you copy it?_ The file is located in /etc/ansible/roles/ directory
 - _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-You update the /etc/ansible/hosts file, and you do this by updating the webservser section with the Ip addresses of the hosts that Filebeat would be installed on, and updating the Elk section with the host(s) Ip address that the Elk container would be installed on.
+You update the /etc/ansible/hosts file, and you do this by updating the webservser section with the Ip addresses of the hosts that Filebeat would be installed on, and updating the Elk section with the Ip address of the host that the Elk container would be installed on. Also make sure not to forget the "ansible_python_interpreter=/usr/bin/python3" in front of the host's Ip addresses.
 - _Which URL do you navigate to in order to check that the ELK server is running?
-http://20.98.101.26:5601/
+http://ELK.VM.PublicIP:5601/
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
 
-  command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+The steps below will be added to the playbook, before executing the playbook:
+ To download the filebeat installation file: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.4.0-amd64.deb
+ To install the file: sudo dpkg -i filebeat-7.4.0-amd64.deb
+ enable and configure system module: filebeat modules enable system
+ setup filebeat: filebeat setup
+ start filebeat service: service filebeat start
+
+ To run the playbook file, we use: ansible-playbook <absolute/relative path of the playbook-filename.yml>
+
+ We repeat the same process for all other playbooks.
