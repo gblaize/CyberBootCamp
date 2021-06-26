@@ -84,7 +84,7 @@ The machines on the internal network are not exposed to the public Internet.
 
 Only the Jumpbox machine can accept connections from the Internet. Access to this machine is only allowed from the following IP addresses:
 - _TODO: Add whitelisted IP addresses_
-198.98.112.166
+My Ip address
 
 Machines within the network can only be accessed by The Jumpbox/ Ansible container, and only the whitelisted public address listed above can access this Jumpbox.
 - _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
@@ -94,8 +94,8 @@ A summary of the access policies in place can be found in the table below.
 
 | Name    | Publicly Accessible | Allowed IP Addresses |
 |---------|---------------------|----------------------|
-| Jumpbox | Yes                 | 198.98.112.166       |
-| Elk-vm  | No                  |                      |
+| Jumpbox | Yes                 | My Ip Address        |
+| Elk-vm  | Yes                 | My Ip Address        |
 | Web1-vm | No                  |                      |
 | Web2-vm | No                  |                      |
 | Web3-vm | No                  |                      |
